@@ -1,5 +1,11 @@
+import NavBar from "../components/navBar";
+import IntroBlock from "../components/introBlock";
+import LinkBox from "../components/linkBox";
+import ContenedorResumen from "../components/contenedorResumen";
+
 function Home() {
-  return( <>
+  return (
+    <>
       <NavBar></NavBar>
       <br></br>
       <br></br>
@@ -16,5 +22,8 @@ function Home() {
           </section>
         </div>
       </div>
-    </>)
+    </>
+  );
 }
+
+export default Home;
