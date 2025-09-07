@@ -1,14 +1,5 @@
-import { useState } from "react";
-import "./App.css";
-import NavBar from "./components/navBar";
-import IntroBlock from "./components/introBlock";
-import LinkBox from "./components/linkBox";
-import ContenedorResumen from "./components/contenedorResumen";
-
-export default App;
-function App() {
-  return (
-    <>
+function Home() {
+  return( <>
       <NavBar></NavBar>
       <br></br>
       <br></br>
@@ -25,6 +16,5 @@ function App() {
           </section>
         </div>
       </div>
-    </>
-  );
+    </>)
 }
