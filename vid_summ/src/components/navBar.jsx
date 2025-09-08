@@ -6,7 +6,7 @@ function NavBar() {
       </div>
       <div>
         <a href="#" className="text-slate-300 hover:underline">
-          Logout
+          Login
         </a>
       </div>
     </nav>
