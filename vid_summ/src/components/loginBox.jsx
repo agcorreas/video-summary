@@ -5,7 +5,7 @@ function LoginBox({ userOrPass }) {
         {userOrPass}
       </label>
       <input
-        type="text"
+        type={`${userOrPass == "Password" ? "password" : "text"}`}
         id={userOrPass}
         name={userOrPass}
         placeholder={`Enter ${userOrPass}`}
