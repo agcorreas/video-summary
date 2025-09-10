@@ -3,6 +3,7 @@ import IntroBlock from "../components/introBlock";
 import LinkBox from "../components/linkBox";
 import ContenedorResumen from "../components/contenedorResumen";
 
+
 function Home() {
   return (
     <>

@@ -13,7 +13,7 @@ function LinkBox() {
         ></input>
         <button
           id="generateBlogButton"
-          className="bg-emerald-400 text-white px-4 py-2 rounded-r-md hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="bg-emerald-400 text-white px-4 py-2 rounded-r-md hover:bg-emerald-500"
         >
           Resumir
         </button>
