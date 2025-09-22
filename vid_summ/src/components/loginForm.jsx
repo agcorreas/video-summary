@@ -1,8 +1,10 @@
 import { useState } from "react";
+import SignUp from "../pages/signup";
 
-function LoginForm() {
+function LoginForm({ withEmail }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,13 +17,27 @@ function LoginForm() {
     <div className="flex items-center justify-center h-screen">
       <div className="bg-slate-500 p-8 shadow-md rounded-lg max-w-md w-full">
         <form className="space-y-4 " onSubmit={handleSubmit}>
-          <h2 className="text-xl font-semibold">Login</h2>
-          <LoginBox userOrPass={"Username"} onChange={setUsername}></LoginBox>
-          <LoginBox userOrPass={"Password"} onChange={setPassword}></LoginBox>
+          <h2 className="text-xl font-semibold">
+            {withEmail ? "Sign Up " : "Login"}
+          </h2>
+          {withEmail && (
+            <LoginBox
+              userOrPassOrEmail={"email"}
+              onChange={setEmail}
+            ></LoginBox>
+          )}
+          <LoginBox
+            userOrPassOrEmail={"username"}
+            onChange={setUsername}
+          ></LoginBox>
+          <LoginBox
+            userOrPassOrEmail={"password"}
+            onChange={setPassword}
+          ></LoginBox>
           <input
             type="submit"
-            value="Login"
-            className="w-full bg-slate-800 text-white py-2 px-4 rounded-md hover:bg-slate-700 cursor-pointer"
+            value={withEmail ? "Sign Up " : "Login"}
+            className="w-full bg-slate-800 text-white py-4 px-4 rounded-md hover:bg-slate-700 cursor-pointer"
           ></input>
         </form>
       </div>
@@ -29,17 +45,19 @@ function LoginForm() {
   );
 }
 
-function LoginBox({ userOrPass, onChange }) {
+function LoginBox({ userOrPassOrEmail, onChange }) {
   return (
     <div>
-      <label for={userOrPass} className="block mb-1 font-medium">
-        {userOrPass}
+      <label for={userOrPassOrEmail} className="block mb-1 font-medium">
+        {userOrPassOrEmail.charAt(0).toUpperCase() + userOrPassOrEmail.slice(1)}
       </label>
       <input
-        type={`${userOrPass == "Password" ? "password" : "text"}`}
-        id={userOrPass}
-        name={userOrPass}
-        placeholder={`Enter ${userOrPass}`}
+        type={userOrPassOrEmail}
+        id={userOrPassOrEmail}
+        name={userOrPassOrEmail}
+        placeholder={`Enter ${
+          userOrPassOrEmail.charAt(0).toUpperCase() + userOrPassOrEmail.slice(1)
+        }`}
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-800"
         onChange={(e) => onChange(e.target.value)}
       ></input>

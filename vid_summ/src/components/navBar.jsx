@@ -8,6 +8,10 @@ function NavBar() {
         <a href="#" className="text-slate-300 hover:underline">
           Login
         </a>
+        {" | "}
+        <a href="#" className="text-slate-300 hover:underline">
+          Sign Up
+        </a>
       </div>
     </nav>
   );
