@@ -1,9 +1,9 @@
-import NavBar from "../components/navBar";
+import NavBar from "../components/navBar"
 
-function AllBlogs() {
+function AllBlogs({isSigned, set_Token}) {
   return (
     <div>
-      <NavBar></NavBar>
+      <NavBar isSigned={isSigned} setToken={set_Token}></NavBar>
       <div className="container mx-auto mt-10 px-4 sm:px-0 max-w-3xl flex-grow">
         <div>
           <section>
@@ -22,7 +22,7 @@ function AllBlogs() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AllBlogs;
+export default AllBlogs

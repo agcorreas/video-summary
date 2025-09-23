@@ -1,13 +1,12 @@
-import NavBar from "../components/navBar";
-import IntroBlock from "../components/introBlock";
-import LinkBox from "../components/linkBox";
-import ContenedorResumen from "../components/contenedorResumen";
+import NavBar from "../components/navBar"
+import IntroBlock from "../components/introBlock"
+import LinkBox from "../components/linkBox"
+import ContenedorResumen from "../components/contenedorResumen"
 
-
-function Home() {
+function Home({isSigned, set_Token}) {
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar isSigned={isSigned} setToken={set_Token}></NavBar>
       <br></br>
       <br></br>
       <div className="flex-grow container mx-auto mt-10 px-4 sm:px-0">
@@ -24,7 +23,7 @@ function Home() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home
