@@ -25,8 +25,7 @@ function LoginForm({ withEmail, setToken }) {
         setToken(token)
         navigate("/")
       } catch (err) {
-        console.error(err.response?.data || err.message)
-        alert("Login failed")
+        handleCatch(err);
       }
       setLoading(false)
     } else {
@@ -40,7 +39,7 @@ function LoginForm({ withEmail, setToken }) {
         alert("Registration successful. Please login.")
         navigate("/login")
       } catch (err) {
-        alert("Registration failed")
+        handleCatch(err);
       }
       setLoading(false)
     }
@@ -96,6 +95,16 @@ function LoginBox({ userOrPassOrEmail, on_Change }) {
       ></input>
     </div>
   )
+}
+
+function handleCatch(err) {
+  if (err.response) {
+    alert(err.response.data.message)
+  } else if (err.request) {
+    alert("No response from server. Please try again later.")
+  } else {
+    alert("Something else happened: " + err.message)
+  }
 }
 
 export default LoginForm
