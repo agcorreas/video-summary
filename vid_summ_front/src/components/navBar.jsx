@@ -25,7 +25,7 @@ function NavBar({ isSigned, setToken }) {
         {" | "}
         {isSigned && (
           <button
-            className=" text-slate-300 hover:underline"
+            className=" text-slate-300 hover:underline cursor-pointer"
             onClick={() => {
               localStorage.removeItem("token")
               setToken(null)

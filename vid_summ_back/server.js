@@ -3,8 +3,8 @@ const cors = require("cors")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const pool = require("./db")
-const {OpenAI} = require("openai");
 const {YoutubeTranscript} = require("youtube-transcript")
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 require("dotenv").config()
 
 
@@ -12,10 +12,9 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-client = new OpenAI({
-  baseURL: "https://models.inference.ai.azure.com",
-  apiKey: process.env.GITHUB_TOKEN,
-});
+
+const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 const SECRET_KEY = "your_secret"
 
@@ -62,26 +61,21 @@ app.post("/login", async (req, res) => {
 app.post("/summarize", async (req, res) => {
   try{
     const { youtubeLink } = req.body
-    const videoId = extractVideoID(youtubeLink)
-    const transcript = await YoutubeTranscript.fetchTranscript(videoId)
-    const text = transcript.map(item => item.text).join(" ")
-    console.log(text)
-    const response = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: `Generate a concise summary for this video transcript: ${text}. The summary should capture the main points discussed in the video.` }],
-    });
-    const summary = response.choices[0].message.content;
+    const result = await model.generateContent([
+      
+      "Do a summary of this video tackling the main points: ",
+      {
+        fileData:{
+          fileUri:youtubeLink,
+        },
+      },
+    ]);
+    const summary = result.response.text();
     res.json({ reply: summary });
   } catch(err){
-    console.log("hubo error")
-    console.error(err);
     res.status(500).json({ message: "Internal server error" })
   }
 })
 
-function extractVideoID(url) {
-  const match = url.match(/v=([^&]+)/)
-  if (match && match[1]) { return match[1] }
-  throw new Error("Invalid YouTube URL")
-}
+
 app.listen(5000, () => console.log("Server running on port 5000"))
