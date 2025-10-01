@@ -3,7 +3,6 @@ const cors = require("cors")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const pool = require("./db")
-const {YoutubeTranscript} = require("youtube-transcript")
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 require("dotenv").config()
 
