@@ -16,7 +16,7 @@ function LoginForm({ withEmail, setToken }) {
     if (!withEmail) {
       setLoading(true)
       try {
-        const res = await axios.post("http://localhost:5000/login", {
+        const res = await axios.post("http://localhost:5000/auth/login", {
           username,
           password,
         })
@@ -31,7 +31,7 @@ function LoginForm({ withEmail, setToken }) {
     } else {
       setLoading(true)
       try {
-        await axios.post("http://localhost:5000/register", {
+        await axios.post("http://localhost:5000/auth/register", {
           email,
           username,
           password,
