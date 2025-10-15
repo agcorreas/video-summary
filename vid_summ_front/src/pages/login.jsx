@@ -4,7 +4,7 @@ function Login({ set_Token }) {
   return (
     <>
       <NavBar></NavBar>
-      <LoginForm setToken={set_Token}></LoginForm>
+      <LoginForm></LoginForm>
     </>
   )
 }

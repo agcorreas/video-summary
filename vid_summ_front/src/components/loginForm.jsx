@@ -2,8 +2,12 @@ import { useState } from "react"
 import SignUp from "../pages/signup"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "./authContext"
 
-function LoginForm({ withEmail, setToken }) {
+
+
+function LoginForm({withEmail}) {
+  const {token, setToken} = useAuth();
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
@@ -21,7 +25,6 @@ function LoginForm({ withEmail, setToken }) {
           password,
         })
         const token = res.data.token
-        localStorage.setItem("token", token)
         setToken(token)
         navigate("/")
       } catch (err) {

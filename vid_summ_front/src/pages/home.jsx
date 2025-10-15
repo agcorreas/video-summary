@@ -4,8 +4,9 @@ import { useState } from "react"
 import axios from "axios"
 import { Infinity } from "ldrs/react"
 import "ldrs/react/Infinity.css"
+import {useAuth} from "../components/authContext"
 
-function Home({ isSigned, set_Token }) {
+function Home() {
   const [youtubeLink, setYoutubeLink] = useState("")
   const [response, setResponse] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -34,11 +35,11 @@ function Home({ isSigned, set_Token }) {
   }
   return (
     <>
-      <NavBar isSigned={isSigned} setToken={set_Token}></NavBar>
+      <NavBar></NavBar>
       <br></br>
       <br></br>
       <div className="flex-grow container mx-auto mt-10 px-4 sm:px-0">
-        <div className="max-w-3xl mx-auto bg-indigo-900 p-6 rounded-lg shadow-md transition-transform transform hover:scale-105 flex flex-col">
+        <div className="max-w-3xl mx-auto bg-indigo-900 p-6 rounded-lg shadow-md flex flex-col">
           <IntroBlock></IntroBlock>
           <br></br>
           <LinkBox
@@ -59,11 +60,13 @@ function Home({ isSigned, set_Token }) {
           )}
           <section className="container mx-auto mt-16 px-4 sm:px-0 max-w-3xl flex-grow">
             <h2 className="text-xl mb-4 font-semibold text-emerald-400">
-              Resumen Generado
+              Summary Generated
             </h2>
-            {response && (
-              <div id="resContent" className="mt-2 text-emerald-500 space-y-4">
+            {response && (<div className="relative">
+              <div id="resContent" className="mt-2 text-emerald-500 space-y-4 p-4">
                 {response}
+              </div>
+              <button className="absolute bottom-0 right-0  bg-blue-500 text-white px-3 py-3 rounded shadow"></button>
               </div>
             )}
           </section>

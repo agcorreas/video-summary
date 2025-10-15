@@ -1,5 +1,12 @@
 import { useNavigate } from "react-router-dom"
-function NavBar({ isSigned, setToken }) {
+import { useAuth } from "./authContext"
+
+function NavBar() {
+  const { token, setToken } = useAuth()
+  const handleLogout = () => {
+    setToken(null);
+  };
+
   return (
     <nav class="bg-indigo-800 p-4 text-slate-300 flex justify-around items-center">
       <div>
@@ -7,7 +14,7 @@ function NavBar({ isSigned, setToken }) {
           Video Summary Generator
         </a>
       </div>
-      {isSigned && (
+      {token && (
         <div>
           <a href="/allblogs" className="text-slate-300 hover:underline">
             All Blogs
@@ -23,13 +30,10 @@ function NavBar({ isSigned, setToken }) {
           Sign Up
         </a>
         {" | "}
-        {isSigned && (
+        {token && (
           <button
             className=" text-slate-300 hover:underline cursor-pointer"
-            onClick={() => {
-              localStorage.removeItem("token")
-              setToken(null)
-            }}
+            onClick={handleLogout}
           >
             Logout
           </button>

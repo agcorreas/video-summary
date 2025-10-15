@@ -5,23 +5,24 @@ import Home from "./pages/home"
 import Login from "./pages/login"
 import SignUp from "./pages/signup"
 import AllBlogs from "./pages/allblogs"
-import SummDetails from "./pages/summdetails"
-import { useNavigate } from "react-router-dom"
+import ProtectedRoute from "./components/protectedRoute"
+import { AuthProvider } from "./components/authContext"
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("token") || null)
   return (
+    <AuthProvider>
     <Router>
       <Routes>
         <Route
           path="/"
-          element={<Home isSigned={token != null} set_Token={setToken} />}
+          element={<Home/>}
         />
-        <Route path="/login" element={<Login set_Token={setToken} />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/allblogs" element={<AllBlogs isSigned={token != null} set_Token={setToken} />} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<SignUp/>} />
+        <Route path="/allblogs" element={<ProtectedRoute><AllBlogs/></ProtectedRoute>}/>
       </Routes>
     </Router>
+    </AuthProvider>
   )
 }
 export default App
