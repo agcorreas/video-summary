@@ -11,6 +11,27 @@ function Home() {
   const [response, setResponse] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
+  const {token, setToken} = useAuth();
+
+  async function handleAddSumm(e) {
+    e.preventDefault()
+    if(!token){
+      alert("You need to be logged in to add the summary to your blog posts.")
+      return;
+    }
+
+    try{
+      const res = await axios.post("http://localhost:5000/addsummary", {response, youtubeLink, token})
+      alert("Summary added to your blog posts!")
+    } catch(err){
+      console.error(err)
+      alert(
+        err.response?.data?.message ||
+          "Error adding summary to blog posts. Please try again."
+      )
+    }
+  }
+
   async function handleYTQuery(e) {
     e.preventDefault()
     setResponse("")
@@ -66,7 +87,7 @@ function Home() {
               <div id="resContent" className="mt-2 text-emerald-500 space-y-4 p-4">
                 {response}
               </div>
-              <button className="absolute bottom-0 right-0  bg-blue-500 text-white px-3 py-3 rounded shadow"></button>
+              <button className="absolute bottom-0 right-0  bg-emerald-500 text-white px-3 py-3 rounded-full shadow hover:bg-emerald-600 cursor-pointer" onClick={handleAddSumm}></button>
               </div>
             )}
           </section>
