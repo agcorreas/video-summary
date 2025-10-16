@@ -17,7 +17,7 @@ router.post("/summarize", async (req, res) => {
     if(!youtubeLink.startsWith("https://www.youtube.com/watch?v=")){return res.status(400).json({ message: "Invalid YouTube link" })}
     const result = await model.generateContent([
       
-      "Do a summary of this video tackling the main points: ",
+      "Make a summary of this video tackling the main points: ",
       {
         fileData:{
           fileUri:youtubeLink,
@@ -61,5 +61,21 @@ router.post("/addsummary", async (req, res) => {
 
     
 });
+
+router.get("/getsummaries", async (req, res) => {
+  try{
+    const token = req.headers.authorization?.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.SECRET_JWT_KEY);
+    if(!decoded) { return res.status(401).json({ message: "Unauthorized" }); }
+    const userID = decoded.id;
+    const user = await User.findById(userID);
+    if(!user) { return res.status(404).json({ message: "User not found" }); }
+    res.json({ summaries: user.summaries });
+  }catch(err){
+
+    console.error(err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+})
 
 export default router;

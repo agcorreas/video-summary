@@ -16,8 +16,8 @@ function NavBar() {
       </div>
       {token && (
         <div>
-          <a href="/allblogs" className="text-slate-300 hover:underline">
-            All Blogs
+          <a href="/allsummaries" className="text-slate-300 hover:underline">
+            Saved Summaries
           </a>
         </div>
       )}

@@ -5,6 +5,8 @@ import axios from "axios"
 import { Infinity } from "ldrs/react"
 import "ldrs/react/Infinity.css"
 import {useAuth} from "../components/authContext"
+import ReactMarkdown from "react-markdown"
+import Markdown from "react-markdown"
 
 function Home() {
   const [youtubeLink, setYoutubeLink] = useState("")
@@ -84,8 +86,8 @@ function Home() {
               Summary Generated
             </h2>
             {response && (<div className="relative">
-              <div id="resContent" className="mt-2 text-emerald-500 space-y-4 p-4">
-                {response}
+              <div id="resContent" className="whitespace-pre-wrap mt-2 text-emerald-500 space-y-4 p-4">
+                <Markdown>{response}</Markdown>
               </div>
               <button className="absolute bottom-0 right-0  bg-emerald-500 text-white px-3 py-3 rounded-full shadow hover:bg-emerald-600 cursor-pointer" onClick={handleAddSumm}></button>
               </div>
