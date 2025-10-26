@@ -3,10 +3,23 @@ import axios from "axios"
 import { useState, useEffect, use } from "react"
 import { useAuth } from "../components/authContext"
 import Markdown from "react-markdown"
+import {Trash2} from "lucide-react"
 
 function AllSummaries() {
   const [summaries, setSummaries] = useState([])
   const { token, setToken } = useAuth();
+
+  async function deleteSummary(indexToDelete) {
+    try {
+      await axios.delete(`http://localhost:5000/deletesummary/${indexToDelete}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSummaries(summaries.filter((_,index) => index !== indexToDelete));
+    } catch (err) {
+      console.error(err);
+      alert("Error deleting summary. Please try again.");
+    }
+  };
 
   useEffect(() => {
     const fetchSummaries = async () => {
@@ -33,11 +46,14 @@ function AllSummaries() {
             {summaries.length === 0 ? (<p className="text-slate-300">No summaries found.</p>) : (
               summaries.map((summary, index) => (
             <div key={index} className="space-y-4 mt-8">
-              <div className="bg-indigo-900 p-4 rounded-lg shadow-md">
+              <div className="relative bg-indigo-900 p-4 rounded-lg shadow-md">
                 <h3 className="text-slate-300 test-lg font-semibold">
                   {summary.title}
                 </h3>
                 <p className="text-slate-300"><Markdown>{summary.summaryText.split('\n')[0]}</Markdown></p>
+                <button className="absolute top-2 right-2 text-slate-300 hover:text-white cursor-pointer p-1 rounded transition" onClick={() => deleteSummary(index)}>
+                  <Trash2 className="w-5 h-5" />
+                </button>
               </div>
             </div>
             )))}

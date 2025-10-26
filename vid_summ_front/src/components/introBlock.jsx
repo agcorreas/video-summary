@@ -1,12 +1,12 @@
 function IntroBlock() {
   return (
     <div className="text-center ">
-      <h2 className="text-2xl font-semibold mb-4 text-emerald-400">
-        Resumidor de videos de YouTube
+      <h2 className="text-2xl font-semibold mb-4 text-slate-300">
+        Youtube Video Summarizer
       </h2>
-      <p className="text-emerald-500 ">
-        Genera resumenes de videos de YouTube que le pases, tenes que pegar el
-        link y en unos segundos vas a tener tu resumen.
+      <p className="text-slate-400 ">
+        Generates a concise summary of any YouTube video by extracting key points
+        and main ideas, helping you grasp the content quickly and efficiently.
       </p>
     </div>
   );
