@@ -7,7 +7,7 @@ dotenv.config();
 
 const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
-
+let summTitle = "";
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post("/summarize", async (req, res) => {
     if(!youtubeLink.startsWith("https://www.youtube.com/watch?v=")){return res.status(400).json({ message: "Invalid YouTube link" })}
     const result = await model.generateContent([
       
-      "Make a summary of this video tackling the main points: ",
+      "Make a summary of this video tackling the main points and in the first line give me the title: ",
       {
         fileData:{
           fileUri:youtubeLink,
@@ -25,6 +25,7 @@ router.post("/summarize", async (req, res) => {
       },
     ]);
     const summary = result.response.text();
+    summTitle = summary.split('\n')[0];
     res.json({ reply: summary });
   } catch(err){
     console.error(err.message);
@@ -38,7 +39,7 @@ router.post("/addsummary", async (req, res) => {
     const decoded = jwt.verify(token, process.env.SECRET_JWT_KEY);
     if(!decoded) { return res.status(401).json({ message: "Unauthorized" }); }
     const userID = decoded.id;
-    const result = await model.generateContent([
+    /*const result = await model.generateContent([
       
       "Give only the title of this video: ",
       {
@@ -47,9 +48,10 @@ router.post("/addsummary", async (req, res) => {
         },
       },
     ]);
-    const title = result.response.text();
+    */
+    //const title = result.response.text();
     
-    const updateUser = await User.findByIdAndUpdate(userID,{$push: {summaries: {title:title, url: youtubeLink, summaryText: response}}}, {new: true});
+    const updateUser = await User.findByIdAndUpdate(userID,{$push: {summaries: {title:summTitle, url: youtubeLink, summaryText: response}}}, {new: true});
     res.json({ message: "Summary added successfully" });
   }catch(err){
     console.error(err.message);

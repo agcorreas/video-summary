@@ -48,9 +48,9 @@ function AllSummaries() {
             <div key={index} className="space-y-4 mt-8">
               <div className="relative bg-indigo-900 p-4 rounded-lg shadow-md">
                 <h3 className="text-slate-300 test-lg font-semibold">
-                  {summary.title}
+                  <Markdown>{summary.title}</Markdown>
                 </h3>
-                <p className="text-slate-300"><Markdown>{summary.summaryText.split('\n')[0]}</Markdown></p>
+                <p className="text-slate-300"><Markdown>{summary.summaryText.split('\n')[2]}</Markdown></p>
                 <button className="absolute top-2 right-2 text-slate-300 hover:text-white cursor-pointer p-1 rounded transition" onClick={() => deleteSummary(index)}>
                   <Trash2 className="w-5 h-5" />
                 </button>

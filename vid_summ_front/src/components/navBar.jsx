@@ -3,8 +3,10 @@ import { useAuth } from "./authContext"
 
 function NavBar() {
   const { token, setToken } = useAuth()
+  const navigate = useNavigate()
   const handleLogout = () => {
     setToken(null);
+    navigate("/");
   };
 
   return (

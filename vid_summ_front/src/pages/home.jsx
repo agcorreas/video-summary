@@ -76,14 +76,14 @@ function Home() {
             handle_YTQuery={handleYTQuery}
           ></LinkBox>
           {isLoading && (
-            <div className="flex justify-center my-16">
+            <div className="flex justify-center my-16 mb-1">
               <Infinity
                 size="70"
                 stroke="4"
                 strokeLength="0.15"
                 bgOpacity="0.1"
                 speed="1.3"
-                color="#34d399"
+                color="#cbd5e1"
               />
             </div>
           )}
