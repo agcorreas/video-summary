@@ -36,6 +36,6 @@ A full-stack web application that lets users **summarize YouTube videos** simply
 - 🗄️ **MongoDB**
 - 🔑 **JWT Authentication**
 
-### Optional
+### Summarizing
 - 🧠 **Gemini API** (for generating video summaries)
 
