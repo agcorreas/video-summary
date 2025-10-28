@@ -39,18 +39,6 @@ router.post("/addsummary", async (req, res) => {
     const decoded = jwt.verify(token, process.env.SECRET_JWT_KEY);
     if(!decoded) { return res.status(401).json({ message: "Unauthorized" }); }
     const userID = decoded.id;
-    /*const result = await model.generateContent([
-      
-      "Give only the title of this video: ",
-      {
-        fileData:{
-          fileUri:youtubeLink,
-        },
-      },
-    ]);
-    */
-    //const title = result.response.text();
-    
     const updateUser = await User.findByIdAndUpdate(userID,{$push: {summaries: {title:summTitle, url: youtubeLink, summaryText: response}}}, {new: true});
     res.json({ message: "Summary added successfully" });
   }catch(err){
@@ -89,6 +77,24 @@ router.delete("/deletesummary/:id", async (req, res) => {
     user.summaries = user.summaries.filter((_,index) => index !== summaryIdx);
     await user.save();
     res.json({ message: "Summary deleted successfully" });
+  }catch(err){
+    console.error(err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.get("/getsummary", async (req, res) => {
+  try{
+    const token = req.headers.authorization?.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.SECRET_JWT_KEY);
+    if(!decoded) { return res.status(401).json({ message: "Unauthorized" }); }
+    const userID = decoded.id;
+    const summaryIdx = parseInt(req.query.idx);
+    const user = await User.findById(userID);
+    if(!user) { return res.status(404).json({ message: "User not found" }); }
+    const summary = user.summaries[summaryIdx];
+    if(!summary) { return res.status(404).json({ message: "Summary not found" }); }
+    res.json({ summary });
   }catch(err){
     console.error(err.message);
     res.status(500).json({ message: "Internal server error" });

@@ -24,9 +24,11 @@ function NavBar() {
         </div>
       )}
       <div>
+        {!token && (
         <a href="/login" className="text-slate-300 hover:underline">
           Login
         </a>
+        )}
         {" | "}
         <a href="/signup" className="text-slate-300 hover:underline">
           Sign Up

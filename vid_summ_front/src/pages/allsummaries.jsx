@@ -4,10 +4,12 @@ import { useState, useEffect, use } from "react"
 import { useAuth } from "../components/authContext"
 import Markdown from "react-markdown"
 import {Trash2} from "lucide-react"
+import {Link} from "react-router-dom"
 
 function AllSummaries() {
   const [summaries, setSummaries] = useState([])
   const { token, setToken } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   async function deleteSummary(indexToDelete) {
     try {
@@ -30,10 +32,23 @@ function AllSummaries() {
         setSummaries(res.data.summaries)
       } catch (err) {
         console.error(err)
+      }finally{
+        setLoading(false);
       }
     }
     fetchSummaries()
   },[]);
+  if(loading){
+    return (
+      <div>
+        <NavBar></NavBar>
+        <div className="container mx-auto mt-10 px-4 sm:px-0 max-w-3xl flex-grow">
+          <p className="text-slate-300">Loading summaries...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div>
       <NavBar></NavBar>
@@ -48,7 +63,7 @@ function AllSummaries() {
             <div key={index} className="space-y-4 mt-8">
               <div className="relative bg-indigo-900 p-4 rounded-lg shadow-md">
                 <h3 className="text-slate-300 test-lg font-semibold">
-                  <Markdown>{summary.title}</Markdown>
+                  <Link to={`/summdetails/${index}`}><Markdown>{summary.title}</Markdown></Link>
                 </h3>
                 <p className="text-slate-300"><Markdown>{summary.summaryText.split('\n')[2]}</Markdown></p>
                 <button className="absolute top-2 right-2 text-slate-300 hover:text-white cursor-pointer p-1 rounded transition" onClick={() => deleteSummary(index)}>
