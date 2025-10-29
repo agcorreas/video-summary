@@ -1,29 +1,25 @@
-# 🎬 Video Summarizer Web App
+# Video Summarizer Web App
 
 A full-stack web application that lets users **summarize YouTube videos** simply by pasting a link — with secure **authentication**, and the ability to **save** or **delete** summaries from their personal collection.
 
 ---
 
-## 🚀 Features
+## Features
 
-- 🔗 **Summarize Videos**  
+- **Summarize Videos**  
   Paste a YouTube link and get an AI-generated summary of the video’s key points.
 
-- 👤 **User Authentication**  
+- **User Authentication**  
   Register and log in securely (JWT-based authentication).
 
-- 💾 **Personal Summary Collection**  
+- **Personal Summary Collection**  
   Add your favorite summaries to your account for quick access later.
 
-- 🗑️ **Manage Your Summaries**  
+- **Manage Your Summaries**  
   Delete summaries from your collection when you no longer need them.
-
-- 🎨 **Clean, Responsive UI**  
-  Built with React and styled for simplicity and usability.
-
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - ⚛️ **React**
@@ -32,10 +28,10 @@ A full-stack web application that lets users **summarize YouTube videos** simply
 - 🔐 **Axios** (for API requests with auth headers)
 
 ### Backend
-- 🐍  **Express.js**
-- 🗄️ **MongoDB**
-- 🔑 **JWT Authentication**
+- **Node.js (Express)**
+- **MongoDB**
+- **JWT Authentication**
 
 ### Summarizing
-- 🧠 **Gemini API** (for generating video summaries)
+-**Gemini API** (for generating video summaries)
 
