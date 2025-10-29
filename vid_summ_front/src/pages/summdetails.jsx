@@ -6,7 +6,7 @@ import { useAuth } from "../components/authContext"
 import Markdown from "react-markdown"
 
 function SummDetails() {
-  const { idx } = useParams()
+  const { id } = useParams()
   const [summary, setSummary] = useState(null)
   const { token } = useAuth()
   const [loading, setLoading] = useState(true)
@@ -15,9 +15,9 @@ function SummDetails() {
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-        console.log("Fetching summary with index:", idx)
+        console.log("Fetching summary with id:", id)
         const res = await axios.get(
-          `http://localhost:5000/getsummary/?idx=${idx}`,
+          `http://localhost:5000/getsummary/?id=${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -31,7 +31,7 @@ function SummDetails() {
       }
     }
     fetchSummary()
-  }, [idx, token])
+  }, [id, token])
 
   if (loading) {
     return (

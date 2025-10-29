@@ -8,6 +8,7 @@ import { useAuth } from "../components/authContext"
 import ReactMarkdown from "react-markdown"
 import Markdown from "react-markdown"
 import { BookmarkPlus, Loader2, BookmarkCheck } from "lucide-react"
+import { set } from "mongoose"
 
 function Home() {
   const [youtubeLink, setYoutubeLink] = useState("")
@@ -33,10 +34,14 @@ function Home() {
       })
     } catch (err) {
       console.error(err)
+      if(err.response?.data?.message === "jwt expired"){
+        alert("Your session has expired. Please log in again.")
+      }else{
       alert(
         err.response?.data?.message ||
           "Error adding summary to blog posts. Please try again."
       )
+    }
     }
     setAddButtonState("done")
   }
@@ -44,6 +49,7 @@ function Home() {
   async function handleYTQuery(e) {
     e.preventDefault()
     setResponse("")
+    setAddButtonState("idle")
     if (!youtubeLink) {
       return
     }

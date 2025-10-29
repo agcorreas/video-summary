@@ -11,12 +11,12 @@ function AllSummaries() {
   const { token, setToken } = useAuth();
   const [loading, setLoading] = useState(true);
 
-  async function deleteSummary(indexToDelete) {
+  async function deleteSummary(idToDelete) {
     try {
-      await axios.delete(`http://localhost:5000/deletesummary/${indexToDelete}`, {
+      await axios.delete(`http://localhost:5000/deletesummary/${idToDelete}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setSummaries(summaries.filter((_,index) => index !== indexToDelete));
+      setSummaries(summaries.filter((summary,idToDelete) => summary._id !== idToDelete));
     } catch (err) {
       console.error(err);
       alert("Error deleting summary. Please try again.");
@@ -37,7 +37,7 @@ function AllSummaries() {
       }
     }
     fetchSummaries()
-  },[]);
+  },[summaries]);
   if(loading){
     return (
       <div>
@@ -63,10 +63,10 @@ function AllSummaries() {
             <div key={index} className="space-y-4 mt-8">
               <div className="relative bg-indigo-900 p-4 rounded-lg shadow-md">
                 <h3 className="text-slate-300 test-lg font-semibold">
-                  <Link to={`/summdetails/${index}`}><Markdown>{summary.title}</Markdown></Link>
+                  <Link to={`/summdetails/${summary._id}`}><Markdown>{summary.title}</Markdown></Link>
                 </h3>
                 <p className="text-slate-300"><Markdown>{summary.summaryText.split('\n')[2]}</Markdown></p>
-                <button className="absolute top-2 right-2 text-slate-300 hover:text-white cursor-pointer p-1 rounded transition" onClick={() => deleteSummary(index)}>
+                <button className="absolute top-2 right-2 text-slate-300 hover:text-white cursor-pointer p-1 rounded transition" onClick={() => deleteSummary(summary._id)}>
                   <Trash2 className="w-5 h-5" />
                 </button>
               </div>

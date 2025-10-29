@@ -21,7 +21,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/allsummaries" element={<ProtectedRoute><AllSummaries/></ProtectedRoute>}/>
-        <Route path="/summdetails/:idx" element={<ProtectedRoute><SummDetails/></ProtectedRoute>}/>
+        <Route path="/summdetails/:id" element={<ProtectedRoute><SummDetails/></ProtectedRoute>}/>
       </Routes>
     </Router>
     </AuthProvider>
