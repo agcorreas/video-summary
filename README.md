@@ -22,10 +22,10 @@ A full-stack web application that lets users **summarize YouTube videos** simply
 ## Tech Stack
 
 ### Frontend
-- ⚛️ **React**
-- 🧭 **React Router** (for navigation)
-- 🎨 **Tailwind CSS** (for styling)
-- 🔐 **Axios** (for API requests with auth headers)
+- **React**
+- **React Router** (for navigation)
+- **Tailwind CSS** (for styling)
+- **Axios** (for API requests with auth headers)
 
 ### Backend
 - **Node.js (Express)**
