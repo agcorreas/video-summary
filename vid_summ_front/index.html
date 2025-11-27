@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-indigo-950">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vid Summ</title>
+    <style>
+      html, body {
+        background-color: #1e1b4b;
+        margin: 0;
+        padding: 0;
+      }
+      #root {
+        background-color: #1e1b4b;
+        min-height: 100vh;
+      }
+    </style>
   </head>
   <body class="bg-indigo-950 flex flex-col min-h-screen font-sans antialiased">
-    <div id="root"></div>
+    <div id="root" class="bg-indigo-950"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

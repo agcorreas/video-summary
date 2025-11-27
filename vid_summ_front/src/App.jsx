@@ -11,20 +11,22 @@ import SummDetails from "./pages/summdetails"
 
 function App() {
   return (
-    <AuthProvider>
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={<Home/>}
-        />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<SignUp/>} />
-        <Route path="/allsummaries" element={<ProtectedRoute><AllSummaries/></ProtectedRoute>}/>
-        <Route path="/summdetails/:id" element={<ProtectedRoute><SummDetails/></ProtectedRoute>}/>
-      </Routes>
-    </Router>
-    </AuthProvider>
+    <div className="bg-indigo-950 min-h-screen">
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={<Home/>}
+            />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/signup" element={<SignUp/>} />
+            <Route path="/allsummaries" element={<ProtectedRoute><AllSummaries/></ProtectedRoute>}/>
+            <Route path="/summdetails/:id" element={<ProtectedRoute><SummDetails/></ProtectedRoute>}/>
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </div>
   )
 }
 export default App

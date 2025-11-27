@@ -2,13 +2,11 @@ import NavBar from "../components/navBar"
 import IntroBlock from "../components/introBlock"
 import { useState } from "react"
 import axios from "axios"
-import { Infinity } from "ldrs/react"
-import "ldrs/react/Infinity.css"
 import { useAuth } from "../components/authContext"
 import ReactMarkdown from "react-markdown"
 import Markdown from "react-markdown"
 import { BookmarkPlus, Loader2, BookmarkCheck } from "lucide-react"
-import { set } from "mongoose"
+import LoadingSpinner from "../components/loadingSpinner"
 
 function Home() {
   const [youtubeLink, setYoutubeLink] = useState("")
@@ -69,55 +67,50 @@ function Home() {
     setIsLoading(false)
   }
   return (
-    <>
+    <div className="page-enter">
       <NavBar></NavBar>
       <br></br>
       <br></br>
       <div className="flex-grow container mx-auto mt-10 px-4 sm:px-0">
-        <div className="max-w-3xl mx-auto bg-indigo-900 p-6 rounded-lg shadow-md flex flex-col">
+        <div className="max-w-3xl mx-auto bg-indigo-900 p-8 rounded-xl shadow-2xl flex flex-col hover-lift border border-indigo-700/50">
           <IntroBlock></IntroBlock>
-          <br></br>
-          <LinkBox
-            set_YoutubeLink={setYoutubeLink}
-            handle_YTQuery={handleYTQuery}
-          ></LinkBox>
+          <div className="my-6">
+            <LinkBox
+              set_YoutubeLink={setYoutubeLink}
+              handle_YTQuery={handleYTQuery}
+              isLoading={isLoading}
+            ></LinkBox>
+          </div>
           {isLoading && (
-            <div className="flex justify-center my-16 mb-0">
-              <Infinity
-                size="70"
-                stroke="4"
-                strokeLength="0.15"
-                bgOpacity="0.1"
-                speed="1.3"
-                color="#cbd5e1"
-              />
+            <div className="my-16 mb-0 content-fade-in">
+              <LoadingSpinner size="xl" text="Generating summary..." />
             </div>
           )}
-          <section className="container mx-auto mt-16 px-4 sm:px-0 max-w-3xl flex-grow">
-            <h2 className="text-xl mb-4 font-semibold text-slate-300">
+          <section className="mt-8 flex-grow">
+            <h2 className="text-2xl mb-6 font-bold text-slate-200">
               Summary Generated
             </h2>
             {response && (
-              <div className="relative p-2">
+              <div className="relative content-fade-in">
                 <div
                   id="resContent"
-                  className="whitespace-pre-wrap mt-2 text-slate-400 space-y-4 p-4"
+                  className="whitespace-pre-wrap text-slate-300 space-y-4 p-6 rounded-lg bg-indigo-950/50 border border-indigo-700/30 transition-all duration-300"
                 >
                   <Markdown>{response}</Markdown>
                 </div>
                 <button
-                  className="absolute bottom-0 right-0  flex items-center justify-center p-2 rounded text-slate-300 hover:text-white cursor-pointer transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="absolute bottom-4 right-4 flex items-center justify-center p-3 rounded-lg text-slate-300 hover:text-white hover:bg-indigo-900/60 bg-indigo-950/50 backdrop-blur-sm cursor-pointer transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-950/50 border border-indigo-700/30 hover:border-indigo-600/50"
                   onClick={handleAddSumm}
                   disabled={addButtonState === "loading" || addButtonState === "done"}
                 >
                   {addButtonState === "idle" && (
-                    <BookmarkPlus className="w-5 h-5" />
+                    <BookmarkPlus className="w-5 h-5 transition-transform duration-200 hover:scale-110" />
                   )}
                   {addButtonState === "loading" && (
                     <Loader2 className="w-5 h-5 animate-spin" />
                   )}
                   {addButtonState === "done" && (
-                    <BookmarkCheck className="w-5 h-5" />
+                    <BookmarkCheck className="w-5 h-5 text-green-400" />
                   )}
                 </button>
               </div>
@@ -125,30 +118,32 @@ function Home() {
           </section>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
-function LinkBox({ set_YoutubeLink, handle_YTQuery }) {
+function LinkBox({ set_YoutubeLink, handle_YTQuery, isLoading }) {
   return (
     <div>
-      <h2 className="text-xl mb-4 font-semibold text-slate-300">
+      <h2 className="text-xl mb-4 font-semibold text-slate-200">
         Paste YouTube Link
       </h2>
-      <div className="flex">
+      <div className="flex gap-0">
         <input
           id="youtubeLink"
           onChange={(e) => set_YoutubeLink(e.target.value)}
           type="url"
-          placeholder="Paste Link..."
-          className="flex-grow p-2 border border-slate-300 rounded-l-md placeholder: text-slate-300 focus:outline-none "
+          placeholder="Paste YouTube link here..."
+          disabled={isLoading}
+          className="flex-grow p-3 border border-indigo-600/50 rounded-l-lg placeholder:text-slate-500 text-slate-200 bg-indigo-950/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-indigo-500/70"
         ></input>
         <button
           id="generateBlogButton"
-          className="bg-slate-300 text-indigo-500 px-4 py-2 rounded-r-md hover:bg-slate-400 cursor-pointer"
+          disabled={isLoading}
+          className="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 py-3 rounded-r-lg hover:from-indigo-500 hover:to-indigo-600 hover:shadow-xl cursor-pointer transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-semibold transform hover:scale-[1.02] active:scale-[0.98]"
           onClick={handle_YTQuery}
         >
-          Summarize
+          {isLoading ? "Processing..." : "Summarize"}
         </button>
       </div>
     </div>

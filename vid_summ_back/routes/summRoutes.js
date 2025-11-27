@@ -55,7 +55,6 @@ router.post("/addsummary", async (req, res) => {
       },
       { new: true }
     )
-    await updateUser.save()
     res.json({ message: "Summary added successfully" })
   } catch (err) {
     console.error(err.message)
