@@ -1,7 +1,14 @@
 FROM node:20-alpine
 WORKDIR /app
-COPY vid_summ_back/package*.json ./
+
+# Copy root package.json and package-lock.json (for dependencies)
+COPY package*.json ./
+
+# Install dependencies from root
 RUN npm install
+
+# Copy backend source code
 COPY vid_summ_back/ .
+
 EXPOSE 3000
 CMD ["node", "server.js"]
