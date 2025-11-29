@@ -1,0 +1,7 @@
+FROM node:20-alpine
+WORKDIR /app
+COPY vid_summ_back/package*.json ./
+RUN npm install
+COPY vid_summ_back/ .
+EXPOSE 3000
+CMD ["node", "server.js"]
