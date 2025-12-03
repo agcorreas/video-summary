@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   mongo:
     image: mongo:7
@@ -7,6 +7,10 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_DATABASE: videosummarydb
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
 
   backend:
     build:
@@ -18,7 +22,12 @@ services:
       - mongo
     environment:
       GEMINI_API_KEY: ${GEMINI_API_KEY}
-      MONGO_URI: mongodb://mongo:27017/videosummarydb
+      SECRET_JWT_KEY: ${SECRET_JWT_KEY:-change-this-secret-key}
+      MONGODB_URI: mongodb://mongo:27017/videosummarydb
+      NODE_ENV: production
+    networks:
+      - app-network
+    restart: unless-stopped
 
   frontend:
     build:
@@ -29,4 +38,14 @@ services:
     depends_on:
       - backend
     environment:
-      VITE_API_URL: http://localhost:3000
+      VITE_API_URL: http://localhost:5000
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
+    driver: bridge

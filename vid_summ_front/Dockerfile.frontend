@@ -1,7 +1,0 @@
-FROM node:20-alpine
-WORKDIR /app
-COPY vid_summ_front/package*.json ./
-RUN npm install
-COPY vid_summ_front/ .
-EXPOSE 5173
-CMD ["npm", "run", "dev"]
