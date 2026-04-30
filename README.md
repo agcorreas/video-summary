@@ -1,3 +1,4 @@
+
 # Video Summarizer Web App
 
 A full-stack web application that lets users **summarize YouTube videos** simply by pasting a link — with secure **authentication**, and the ability to **save** or **delete** summaries from their personal collection.
@@ -34,4 +35,8 @@ A full-stack web application that lets users **summarize YouTube videos** simply
 
 ### Summarizing
 -**Gemini API** (for generating video summaries)
+
+### Demo
+[ezyZip.webm](https://github.com/user-attachments/assets/ab8f5f74-04e6-4cb2-affa-8af070236ae6)
+
 
