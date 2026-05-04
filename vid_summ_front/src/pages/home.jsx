@@ -99,6 +99,8 @@ function Home() {
                   <Markdown>{response}</Markdown>
                 </div>
                 <button
+                  type="button"
+                  data-testid="save-summary-button"
                   className="absolute bottom-2 right-2 flex items-center justify-center p-3 rounded-lg text-slate-300 hover:text-white hover:bg-indigo-900/60 bg-indigo-950/50 backdrop-blur-sm cursor-pointer transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-950/50 border border-indigo-700/30 hover:border-indigo-600/50"
                   onClick={handleAddSumm}
                   disabled={addButtonState === "loading" || addButtonState === "done"}
